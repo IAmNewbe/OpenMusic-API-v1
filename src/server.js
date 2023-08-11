@@ -4,9 +4,9 @@ const Hapi = require('@hapi/hapi');
 const songs = require('./api/songs');
 const albums = require('./api/albums');
 const SongsValidator = require('./validator/songs/SongIndex');
-const AlbumsService = require('./services/inMemory/AlbumsServices');
+const AlbumsService = require('./services/postgres/AlbumsServices');
 const AlbumsValidator = require('./validator/albums/AlbumIndex');
-const SongsService = require('./services/inMemory/SongsServices');
+const SongsService = require('./services/postgres/SongsService');
 
 const init = async () => {
   const songsService = new SongsService();

@@ -18,8 +18,8 @@ class AlbumsService {
 
     const isSuccess = this._albums.filter((album) => album.id === id).length > 0;
 
-    if (isSuccess) {
-      throw new InvariantError('Album gagal ditambahkan');
+    if (!isSuccess) {
+      throw new InvariantError('waduh Album gagal ditambahkan');
     }
 
     return id;

@@ -1,4 +1,5 @@
-const { AlbumPayloadSchema } = require("./shcema")
+const InvariantError = require("../../exceptions/InvariantError");
+const { AlbumPayloadSchema } = require("./AlbumSchema");
 
 const AlbumsValidator = {
   validateAlbumPayload: (payload) => {

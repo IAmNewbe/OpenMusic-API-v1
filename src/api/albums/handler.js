@@ -11,9 +11,9 @@ class AlbumHandler {
     this.deleteAlbumByIdHandler = this.deleteAlbumByIdHandler.bind(this);
   }
 
-  async postAlbumHandler(){
+  async postAlbumHandler(request, h){
     try {
-      this._validator.validate(request.payload);
+      this._validator.validateAlbumPayload(request.payload);
       const { name, year } = request.payload;
 
       const albumId= await this._service.addAlbum({ name, year });
@@ -103,11 +103,12 @@ class AlbumHandler {
         message: 'server error',
       });
       response.code(500);
+      console.error(err);
       return response;
     }
   }
 
-  async deleteAlbumByIdHandler() {
+  async deleteAlbumByIdHandler(request, h) {
     try {
       const { id } = request.params;
       await this._service.deleteAlbumById(id);

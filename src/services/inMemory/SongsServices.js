@@ -7,9 +7,9 @@ class SongsService {
     this._songs = [];
   }
 
-  addSong({ title, year, genre, performer, duration, albumId }) {
+  addSong({ title, year, performer, genre, duration, albumId }) {
     const id = `song-${nanoid(16)}`;
-    
+    console.log(id);
     const newSong = {
       title, year, genre, performer, duration, albumId,
     };
@@ -22,7 +22,7 @@ class SongsService {
       throw new InvariantError('Song gagal ditambahkan');
     }
 
-    return id
+    return id;
   }
 
   getSongs() {
@@ -30,7 +30,7 @@ class SongsService {
   }
 
   getSongById(id) {
-    const song = this._songs.filter((song) => song.id === id)[0];
+    const song = this._songs.filter((n) => n.id === id)[0];
 
     if (!song) {
       throw new NotFoundError('Song tidak ditemukan');
@@ -39,9 +39,9 @@ class SongsService {
     return song;
   }
 
-  editSongById(id, { title, year, genre, performer, duration, albumId}) {
+  editSongById(id, { title, year, performer ,genre , duration, albumId}) {
     const index = this._songs.findIndex((song) => song.id === id);
-
+    console.log(index);
     if (index === -1) {
       throw new NotFoundError('Gagal memperbarui song. Id tidak ditemukan');
     }
@@ -50,8 +50,8 @@ class SongsService {
       ...this._songs[index],
       title,
       year,
-      genre,
       performer,
+      genre,
       duration,
       albumId,
     };

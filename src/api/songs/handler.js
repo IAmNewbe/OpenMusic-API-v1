@@ -12,17 +12,17 @@ class SongHandler {
     this.deleteSongByIdHandler = this.deleteSongByIdHandler.bind(this);
   }
 
-  async postSongHandler(){
+  async postSongHandler(request, h){
     try {
-      this._validator.validate(request.payload);
+      this._validator.validateSongPayload(request.payload);
       const { title = 'untitled', year, genre, performer, duration, albumId } = request.payload;
 
-      const SongId= await this._service.addSong({ title, year, genre, performer, duration, albumId });
-
+      const songId= await this._service.addSong({ title, year, genre, performer, duration, albumId });
+  
       const response = h.response({
         status: 'success',
         data: {
-          SongId,
+          songId,
         },
       });
       response.code(201);
@@ -119,7 +119,7 @@ class SongHandler {
     }
   }
 
-  async deleteSongByIdHandler() {
+  async deleteSongByIdHandler(request, h) {
     try {
       const { id } = request.params;
       await this._service.deleteSongById(id);
