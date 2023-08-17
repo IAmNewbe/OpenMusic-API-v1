@@ -20,11 +20,17 @@ const AuthenticationsService = require('./services/postgres/AuthenticationsServi
 const TokenManager = require('./tokenize/TokenManager');
 const AuthenticationsValidator = require('./validator/authentications');
 
+//Playlists
+const playlists = require('./api/playlists');
+const PlaylistsService = require('./services/postgres/PlaylistsService');
+const PlaylistsValidator = require('./validator/playlists');
+
 const init = async () => {
   const songsService = new SongsService();
   const albumsService = new AlbumsService();
   const userService = new UserService();
   const authenticationsService = new AuthenticationsService();
+  const playlistsService = new PlaylistsService();
 
   const server = Hapi.server({
     port: process.env.PORT,
@@ -43,7 +49,7 @@ const init = async () => {
     },
   ]);
    // mendefinisikan strategy autentikasi jwt
-   server.auth.strategy('songs_jwt', 'jwt', {
+   server.auth.strategy('songsapp_jwt', 'jwt', {
     keys: process.env.ACCESS_TOKEN_KEY,
     verify: {
       aud: false,
@@ -88,6 +94,14 @@ const init = async () => {
         userService,
         tokenManager: TokenManager,
         validator: AuthenticationsValidator,
+      }
+    },
+    {
+      plugin: playlists,
+      options: {
+        playlistsService,
+        userService,
+        validator: PlaylistsValidator,
       }
     }
   ]);
