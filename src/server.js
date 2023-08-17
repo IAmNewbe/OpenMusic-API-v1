@@ -1,6 +1,7 @@
 require ('dotenv').config();
 
 const Hapi = require('@hapi/hapi');
+const Jwt = require('@hapi/jwt');
 const songs = require('./api/songs');
 const albums = require('./api/albums');
 const SongsValidator = require('./validator/songs/SongIndex');
