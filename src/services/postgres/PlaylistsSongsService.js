@@ -49,7 +49,7 @@ class PlaylistSongService {
     
     const result = mapDBToModelPlaylistSong(playlistObject, songObject)
     
-    if(!result.rows.length) {
+    if(!playlistData.rows.length) {
       throw new NotFoundError('Playlist tidak ditemukan');
     }
 
