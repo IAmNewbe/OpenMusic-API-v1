@@ -40,20 +40,20 @@ class PlaylistSongService {
       values: [playlistId],
     };
 
-    const hasil = await this._pool.query(playlist);
+    const playlistData = await this._pool.query(playlist);
     
-    const hasil2 = hasil.rows[0];
+    const playlistObject = playlistData.rows[0];
    
-    const result = await this._pool.query(query);
-    const result2 = result.rows;
-    // const final = hasil2.push(result2);
-    const final = mapDBToModelPlaylistSong(hasil2, result2)
+    const songData = await this._pool.query(query);
+    const songObject = songData.rows;
     
-    if(!hasil.rows.length) {
+    const result = mapDBToModelPlaylistSong(playlistObject, songObject)
+    
+    if(!result.rows.length) {
       throw new NotFoundError('Playlist tidak ditemukan');
     }
 
-    return final;
+    return result;
   }
 
   async deleteSongFromPlaylistSong(playlistId, songId) {
